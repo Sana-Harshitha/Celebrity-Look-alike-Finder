@@ -97,10 +97,13 @@ celebrity-face-recognition/
 ├── metadata/
 │   ├── celeb_mean_embeddings.csv
 │   └── celeb_info_scraped.csv
-├── utils/
-│   ├── extract_embeddings.py
-│   ├── compute_mean_embeddings.py
-│   └── scrape_wiki_info.py
+├── scripts/
+│   ├── scrape_images.py
+│   ├── filter_images.py
+│   ├── generate_embeddings.py
+│   ├── generate_mean_embeddings.py
+│   ├── data_csv_generater.py
+│   └── desc_generater_csv.py
 ├── requirements.txt
 └── README.md
 ```
@@ -177,8 +180,7 @@ Pillow>=10.0.0
 
 ## 🔮 Future Improvements
 
-- Top 5 closest matches
-- Handle multiple faces in image
+- UI improvements
 - Add social/influencer links
 - Use FAISS for faster vector search
 
@@ -187,17 +189,11 @@ Pillow>=10.0.0
 ## 👨‍💻 Author
 
 **Harshitha Sana**  
-📧 harshithasana@google.com
+📧 sanaharshitha2@gmail.com
 
 ---
 
-## 📄 License
-
-MIT License
-
----
-
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - [InsightFace](https://github.com/deepinsight/insightface)
 - [face_recognition](https://github.com/ageitgey/face_recognition)
