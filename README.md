@@ -1,102 +1,144 @@
-#Celebrity face look a like 🎭
+# 🇮🇳 Indian Celebrity Face Recognition 🎭
 
-A deep learning-based face recognition project to identify **Indian celebrities** from user-uploaded images. It uses **InsightFace** for 512-dimensional face embeddings, filters images with single faces, and scrapes Wikipedia for descriptions — all packaged in a clean Streamlit web app.
+A deep learning-based face recognition system to identify Indian celebrities from user-uploaded images. It uses **InsightFace** for 512-D embeddings, filters images with a single face, scrapes Wikipedia for descriptions, and provides a fast, Streamlit-powered UI.
 
 ---
 
 ## 🚀 Features
 
-- ✅ Scrapes 102 Indian celebrity images from Google
-- ✅ Filters valid images with only one face using `face_recognition`
-- ✅ Extracts 512-D facial embeddings using **InsightFace**
-- ✅ Computes **mean embedding per celebrity**
-- ✅ Scrapes descriptions using `WikipediaAPI`
-- ✅ Deployable web app via **Streamlit**
+- ✅ Scrape 102 celebrity images using `icrawler`
+- ✅ Filter valid images using `face_recognition`
+- ✅ Extract 512-D embeddings via **InsightFace**
+- ✅ Compute **mean embeddings** per celebrity
+- ✅ Scrape celebrity info using `WikipediaAPI`
+- ✅ Deploy with **Streamlit**
 
 ---
 
----
+## 🧠 How It Works
 
-## 🔄 Workflow Overview
+### 1. Image Scraping
+Used `GoogleImageCrawler` from `icrawler` to scrape 102 Indian celebrity images:
+```python
+from icrawler.builtin import GoogleImageCrawler
+```
 
-### 1. 🖼️ Scrape Celebrity Images
-Used `GoogleImageCrawler` from `icrawler` to download 102 Indian celebrity images. Each celebrity’s folder is named like `CI0001`, `CI0002`, ..., and each image `CI0001_001.jpg`, etc.
+### 2. Image Filtering
+Used `face_recognition` to retain only images with exactly one face:
+```python
+import face_recognition
+```
 
-### 2. 🧼 Filter Valid Images
-Used `face_recognition` to retain only images with **exactly one face** for high-quality embedding extraction.
+### 3. Image Naming Convention
+Saved as: `CIXXXXYYY.jpg`  
+- `X` = celebrity number (001–102)  
+- `Y` = image number for that celebrity
 
-### 3. 🧠 Embedding Extraction (512-D)
-Used `InsightFace` to extract embeddings from filtered images:
-
+### 4. Embedding Extraction
+Used `InsightFace` to extract 512-dimensional embeddings:
 ```python
 from insightface.app import FaceAnalysis
-Each celeb's embeddings were stored in a dictionary:
-
-python
-Copy
-Edit
+```
+Stored as:  
+```python
 { 'celeb_name': [embedding1, embedding2, ...] }
-And saved using pickle.
+```
+Saved with:
+```python
+import pickle
 
-4. ➕ Compute Mean Embeddings
-Averaged all embeddings per celeb and saved them to:
+with open("embeddings_insightface.pkl", "wb") as f:
+    pickle.dump(embeddings, f)
+```
 
-python
-Copy
-Edit
-data/celeb_mean_embeddings.pkl
-5. 📝 Scrape Wikipedia Descriptions
-Scraped Wikipedia summaries for each celebrity using:
+### 5. Mean Embeddings
+Averaged all embeddings per celebrity to get one 512-D vector each:
+```python
+with open(output_path, "wb") as f:
+    pickle.dump(mean_embeddings, f)
+```
 
-python
-Copy
-Edit
+### 6. Metadata CSVs
+- `metadata/celeb_mean_embeddings.csv`: celeb_name + 512-D vector  
+- `metadata/celeb_info_scraped.csv`: celeb_name, description, wikipedia_link
+
+### 7. Wikipedia Scraping
+```python
 import wikipediaapi
-wiki = wikipediaapi.Wikipedia('en', user_agent='CelebrityFaceRecognitionBot/1.0')
-Saved in:
 
-metadata/celeb_info_scraped.csv (columns: celeb_name, desc)
+wiki_wiki = wikipediaapi.Wikipedia(
+    language='en',
+    user_agent='CelebrityFaceRecognitionBot/1.0 (contact: harshithasana@google.com)'
+)
+```
 
-Merged with embeddings in load_data.py
+### 8. Merging Metadata
+In `load_data.py`, loaded and merged both CSVs:
+- Returns single DataFrame with `embedding`, `desc`, and `wikipedia_link`
 
-6. 🌐 Deploy with Streamlit
-A user can upload an image, and the app:
+### 9. Streamlit App (`app.py`)
+- Accepts uploaded user image
+- Extracts face embedding
+- Computes cosine similarity with database
+- Displays best matching celebrity, similarity, and Wikipedia bio
 
-Detects the face
+---
 
-Extracts embedding using InsightFace
+## 🗂️ Project Structure
 
-Compares with mean embeddings using cosine similarity
+```
+celebrity-face-recognition/
+├── app.py
+├── load_data.py
+├── data/
+│   ├── filtered_images/
+│   ├── embeddings_insightface.pkl
+│   └── celeb_mean_embeddings.pkl
+├── metadata/
+│   ├── celeb_mean_embeddings.csv
+│   └── celeb_info_scraped.csv
+├── utils/
+│   ├── extract_embeddings.py
+│   ├── compute_mean_embeddings.py
+│   └── scrape_wiki_info.py
+├── requirements.txt
+└── README.md
+```
 
-Displays the most similar celebrity with description
+---
 
-🧪 How to Run
-1. Clone the repository
-bash
-Copy
-Edit
+## ⚙️ Setup Instructions
+
+### 1. Clone the Repository
+```bash
 git clone https://github.com/yourusername/celebrity-face-recognition.git
 cd celebrity-face-recognition
-2. Create virtual environment (optional)
-bash
-Copy
-Edit
+```
+
+### 2. Create and Activate Environment
+```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-3. Install dependencies
-bash
-Copy
-Edit
+```
+
+### 3. Install Dependencies
+```bash
 pip install -r requirements.txt
-4. Run Streamlit app
-bash
-Copy
-Edit
+```
+
+---
+
+## ▶️ Run the App
+
+```bash
 streamlit run app.py
-📦 requirements.txt
-txt
-Copy
-Edit
+```
+
+---
+
+## 🧾 requirements.txt
+
+```txt
 streamlit>=1.30
 numpy>=1.24
 pandas>=2.0
@@ -106,58 +148,59 @@ insightface>=0.7.3
 wikipedia-api>=0.5.8
 scikit-learn>=1.3.0
 Pillow>=10.0.0
-📸 How Matching Works
-Upload image
-
-Detect and crop face
-
-Extract 512-D embedding
-
-Compare with mean embeddings of 102 celebs
-
-Show most similar match with score + description
-
-📈 Example Use Case
-Upload an image of Shah Rukh Khan → App detects the face → Compares with mean embeddings → Finds best match and shows Wikipedia description.
-
-🎯 Future Ideas
-Support multiple faces per image
-
-Add image confidence score or Top-5 matches
-
-Improve filtering pipeline
-
-Add social media or IMDb links
-
-👩‍💻 Author
-Harshitha Sana
-📧 harshithasana@google.com
-
-🛡️ License
-This project is licensed under the MIT License.
-
-❤️ Acknowledgments
-InsightFace
-
-Face Recognition
-
-Wikipedia API
-
-Streamlit
-
-yaml
-Copy
-Edit
+```
 
 ---
 
+## 🌐 Deployment
 
+### Option 1: Streamlit Cloud
+- Push repo to GitHub
+- Go to https://streamlit.io/cloud
+- Click “New app”, link your repo, and deploy
 
+### Option 2: Hugging Face Spaces
+- Adapt app for Spaces if needed
+- Push to a Hugging Face repository
+- Add this README as the Space card
 
+---
 
+## 📸 Example Flow
 
+1. User uploads a face image
+2. Model extracts 512-D vector using InsightFace
+3. Cosine similarity is calculated with database
+4. Best match is shown with name, similarity score, and description
 
+---
 
+## 🔮 Future Improvements
 
+- Top 5 closest matches
+- Handle multiple faces in image
+- Add social/influencer links
+- Use FAISS for faster vector search
 
+---
 
+## 👨‍💻 Author
+
+**Harshitha Sana**  
+📧 harshithasana@google.com
+
+---
+
+## 📄 License
+
+MIT License
+
+---
+
+## 🙏 Acknowledgments
+
+- [InsightFace](https://github.com/deepinsight/insightface)
+- [face_recognition](https://github.com/ageitgey/face_recognition)
+- [Wikipedia API](https://pypi.org/project/Wikipedia-API/)
+- [Streamlit](https://streamlit.io)
+- [iCrawler](https://github.com/hellock/icrawler)
