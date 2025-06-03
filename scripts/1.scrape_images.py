@@ -11,4 +11,5 @@ def download_images(celebs, max_num=40):
         crawler.crawl(keyword=celeb, max_num=max_num, min_size=(200, 200))
 
 if __name__ == '__main__':
-    download_images(celebs, max_num=30)  # Change to 10–30 if it's slow
+    download_images(celebs, max_num=30)  
+    
