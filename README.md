@@ -1,4 +1,4 @@
-# 🇮🇳 Indian Celebrity Face Recognition 🎭
+#  Celebrity Look a Like Finder 🎭
 
 A deep learning-based face recognition system to identify Indian celebrities from user-uploaded images. It uses **InsightFace** for 512-D embeddings, filters images with a single face, scrapes Wikipedia for descriptions, and provides a fast, Streamlit-powered UI.
 
