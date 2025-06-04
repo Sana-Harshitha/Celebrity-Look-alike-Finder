@@ -153,19 +153,6 @@ scikit-learn>=1.3.0
 Pillow>=10.0.0
 ```
 
----
-
-## 🌐 Deployment
-
-### Option 1: Streamlit Cloud
-- Push repo to GitHub
-- Go to https://streamlit.io/cloud
-- Click “New app”, link your repo, and deploy
-
-### Option 2: Hugging Face Spaces
-- Adapt app for Spaces if needed
-- Push to a Hugging Face repository
-- Add this README as the Space card
 
 ---
 
