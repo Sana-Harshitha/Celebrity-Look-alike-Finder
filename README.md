@@ -6,12 +6,12 @@ A deep learning-based face recognition system to identify Indian celebrities fro
 
 ## Features
 
-- ✅ Scrape 102 **INDIAN** celebrity images using `icrawler`(total 3060 images scraped)
-- ✅ Filter valid images using `face_recognition`
-- ✅ Extract 512-D embeddings via **InsightFace**
-- ✅ Compute **mean embeddings** per celebrity
-- ✅ Scrape celebrity info using `WikipediaAPI`
-- ✅ Deploy with **Streamlit**
+-  Scrape 102 **INDIAN** celebrity images using `icrawler`(total 3060 images scraped)
+-  Filter valid images using `face_recognition`
+-  Extract 512-D embeddings via **InsightFace**
+-  Compute **mean embeddings** per celebrity
+-  Scrape celebrity info using `WikipediaAPI`
+-  Deploy with **Streamlit**
 
 ---
 
@@ -110,7 +110,7 @@ celebrity-face-recognition/
 
 ---
 
-## ⚙ Setup Instructions
+##  Setup Instructions
 
 ### 1. Clone the Repository
 ```bash
@@ -131,7 +131,7 @@ pip install -r requirements.txt
 
 ---
 
-## ▶ Run the App
+##  Run the App
 
 ```bash
 streamlit run app.py
