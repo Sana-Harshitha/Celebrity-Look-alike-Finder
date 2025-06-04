@@ -1,10 +1,10 @@
-#  Celebrity Look a Like Finder 🎭
+#  Celebrity Look a Like Finder 
 
 A deep learning-based face recognition system to identify Indian celebrities from user-uploaded images. It uses **InsightFace** for 512-D embeddings, filters images with a single face, scrapes Wikipedia for descriptions, and provides a fast, Streamlit-powered UI.
 
 ---
 
-## 🚀 Features
+## Features
 
 - ✅ Scrape 102 **INDIAN** celebrity images using `icrawler`(total 3060 images scraped)
 - ✅ Filter valid images using `face_recognition`
@@ -15,7 +15,7 @@ A deep learning-based face recognition system to identify Indian celebrities fro
 
 ---
 
-## 🧠 How It Works
+##  How It Works
 
 ### 1. Image Scraping
 Used `GoogleImageCrawler` from `icrawler` to scrape 102 Indian celebrity images:
@@ -84,7 +84,7 @@ In `load_data.py`, loaded and merged both CSVs:
 
 ---
 
-## 🗂️ Project Structure
+## Project Structure
 
 ```
 celebrity-face-recognition/
@@ -110,7 +110,7 @@ celebrity-face-recognition/
 
 ---
 
-## ⚙️ Setup Instructions
+## ⚙ Setup Instructions
 
 ### 1. Clone the Repository
 ```bash
@@ -131,7 +131,7 @@ pip install -r requirements.txt
 
 ---
 
-## ▶️ Run the App
+## ▶ Run the App
 
 ```bash
 streamlit run app.py
@@ -139,7 +139,7 @@ streamlit run app.py
 
 ---
 
-## 🧾 requirements.txt
+##  requirements.txt
 
 ```txt
 streamlit>=1.30
@@ -156,7 +156,7 @@ Pillow>=10.0.0
 
 ---
 
-## 📸 Example Flow
+## Example Flow
 
 1. User uploads a face image
 2. Model extracts 512-D vector using InsightFace
@@ -165,7 +165,7 @@ Pillow>=10.0.0
 
 ---
 
-## 🔮 Future Improvements
+## Future Improvements
 
 - UI improvements
 - Add social/influencer links
@@ -173,10 +173,10 @@ Pillow>=10.0.0
 
 ---
 
-## 👨‍💻 Author
+##  Author
 
 **Harshitha Sana**  
-📧 sanaharshitha2@gmail.com
+sanaharshitha2@gmail.com
 
 ---
 
