@@ -6,7 +6,7 @@ A deep learning-based face recognition system to identify Indian celebrities fro
 
 ## 🚀 Features
 
-- ✅ Scrape 102 celebrity images using `icrawler`
+- ✅ Scrape 102 celebrity images using `icrawler`(total 3060 images scraped)
 - ✅ Filter valid images using `face_recognition`
 - ✅ Extract 512-D embeddings via **InsightFace**
 - ✅ Compute **mean embeddings** per celebrity
